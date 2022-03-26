@@ -1,4 +1,4 @@
-- hosts: 'cterra-k8s-master-1'
+- hosts: 'terra-k8s-master-1 '
   become: yes
   tasks:
     - name: initialize the cluster
@@ -36,7 +36,7 @@
       register: kubernetes_join_command
 
     - debug:
-      msg: "{{ kubernetes_join_command.stdout }}"
+        msg: "{{ kubernetes_join_command.stdout }}"
 
     - name: Copy join command to local file.
       become: yes

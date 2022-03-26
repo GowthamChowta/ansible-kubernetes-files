@@ -1,5 +1,5 @@
 ---
-- hosts: 'cterra-k8s-master-1 ,cterra-k8s-node-2 , cterra-k8s-node-1 '
+- hosts: 'terra-k8s-node-1, terra-k8s-master-1 '
   remote_user: ubuntu
   become: yes
   become_method: sudo
