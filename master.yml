@@ -1,6 +1,25 @@
 - hosts: 'terra-k8s-master-1 '
   become: yes
   tasks:
+    - name: change docker driver     
+      blockinfile:
+       path: "/etc/docker/daemon.json"
+       block: |
+             {
+              "exec-opts": ["native.cgroupdriver=systemd"],
+              "log-driver": "json-file",
+              "log-opts": {
+                "max-size": "100m"
+              },
+              "storage-driver": "overlay2"
+            }
+            
+    - name: update and reset the changes
+      shell: |
+            sudo systemctl daemon-reload
+            sudo systemctl restart docker
+            sudo kubeadm reset
+
     - name: initialize the cluster
       shell: kubeadm init --pod-network-cidr=10.244.0.0/16
       args:
