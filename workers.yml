@@ -4,12 +4,12 @@
 
   tasks:
    - name: change docker driver     
-      shell: |
+     shell: |
           cat <<EOF | sudo tee /etc/docker/daemon.json
             {"exec-opts": ["native.cgroupdriver=systemd"],"log-driver": "json-file","log-opts": {"max-size": "100m"},"storage-driver": "overlay2"} EOF
     
    - name: update and reset the changes
-      shell: |
+     shell: |
             sudo systemctl daemon-reload
             sudo systemctl restart docker
             sudo kubeadm reset -f                    
