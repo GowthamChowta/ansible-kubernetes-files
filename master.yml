@@ -11,7 +11,7 @@
       shell: |
             sudo systemctl daemon-reload
             sudo systemctl restart docker
-            sudo kubeadm reset -f
+            sudo kubeadm reset -f                    
 
     - name: initialize the cluster
       shell: kubeadm init --pod-network-cidr=10.244.0.0/16
@@ -20,19 +20,11 @@
         creates: cluster_initialized.txt
 
     - name: create .kube directory
-      become: yes
-      become_user: kube
-      file:
-        path: $HOME/.kube
-        state: directory
-        mode: 0755
+      shell: |
+          sudo mkdir -p $HOME/.kube
+          sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+          sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-    - name: copies admin.conf to user's kube config
-      copy:
-        src: /etc/kubernetes/admin.conf
-        dest: /home/kube/.kube/config
-        remote_src: yes
-        owner: kube
 
     - name: install Pod network
       become: yes
