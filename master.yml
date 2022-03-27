@@ -14,7 +14,7 @@
             sudo kubeadm reset -f                    
 
     - name: initialize the cluster
-      shell: kubeadm init --pod-network-cidr=10.244.0.0/16
+      shell: kubeadm init --pod-network-cidr=192.168.0.0/16
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
