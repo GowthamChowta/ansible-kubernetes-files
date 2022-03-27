@@ -20,7 +20,7 @@
         chdir: $HOME
         creates: cluster_initialized.txt
 
-    - name: update and reset the changes
+    - name: for accessing kubectl
       shell: |
             mkdir -p $HOME/.kube
             sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
