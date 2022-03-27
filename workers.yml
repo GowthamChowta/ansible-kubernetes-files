@@ -3,17 +3,17 @@
   gather_facts: yes
 
   tasks:
-    - name: change docker driver     
+   - name: change docker driver     
       shell: |
           cat <<EOF | sudo tee /etc/docker/daemon.json
-            {"exec-opts": ["native.cgroupdriver=systemd"],"log-driver": "json-file","log-opts": {"max-size": "100m"},"storage-driver": "overlay2"}
-            EOF
-    - name: update and reset the changes
+            {"exec-opts": ["native.cgroupdriver=systemd"],"log-driver": "json-file","log-opts": {"max-size": "100m"},"storage-driver": "overlay2"} EOF
+    
+   - name: update and reset the changes
       shell: |
             sudo systemctl daemon-reload
             sudo systemctl restart docker
             sudo kubeadm reset -f                    
-            
+
    - name: Copy join command from Ansiblehost to the worker nodes.
      become: yes
      copy:
