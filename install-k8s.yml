@@ -1,5 +1,5 @@
 ---
-- hosts: 'terra-k8s-node-1, terra-k8s-master-1 '
+- hosts: 'terraclu-k8s-node-1, terraclu-k8s-master-1 '
   remote_user: ubuntu
   become: yes
   become_method: sudo
@@ -73,5 +73,6 @@
      - name: install kubernetes
        shell: |
                sudo apt-get update
-               sudo apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 kubectl=1.20.1-00
+               sudo apt-get install -y kubelet=1.22.0-00 kubeadm=1.22.0-00 kubectl=1.22.0-00
                sudo apt-mark hold kubelet kubeadm kubectl
+

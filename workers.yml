@@ -1,4 +1,4 @@
-- hosts: 'terra-k8s-node-1 '
+- hosts: 'terraclu-k8s-node-1 '
   become: yes
   gather_facts: yes
 

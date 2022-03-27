@@ -1,4 +1,4 @@
-- hosts: 'terra-k8s-master-1 '
+- hosts: 'terraclu-k8s-master-1 '
   become: yes
   tasks:
     - name: change docker driver     
@@ -11,10 +11,10 @@
       shell: |
             sudo systemctl daemon-reload
             sudo systemctl restart docker
-            sudo kubeadm reset -f                    
+            # sudo kubeadm reset -f                    
 
     - name: initialize the cluster
-      shell: kubeadm init --pod-network-cidr=192.168.0.0/16
+      shell: sudo kubeadm init --pod-network-cidr=192.168.0.0/16
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
@@ -38,14 +38,14 @@
     - name: install Pod network
       become: yes
       become_user: kube
-      shell: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml 
+      shell: sudo kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml 
       args:
         chdir: $HOME
         
     - name: Get the token for joining the worker nodes
       become: yes
       become_user: kube
-      shell: kubeadm token create  --print-join-command
+      shell: sudo kubeadm token create  --print-join-command
       register: kubernetes_join_command
 
     - debug:

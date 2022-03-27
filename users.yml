@@ -1,4 +1,4 @@
-- hosts: 'terra-k8s-node-1, terra-k8s-master-1 '
+- hosts: 'terraclu-k8s-node-1, terraclu-k8s-master-1 '
   become: yes
 
   tasks:
